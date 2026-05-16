@@ -1,10 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+<div class="container mt-4">
+
+    <h3 class="mb-4">Today's Appointments Queue</h3>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <table class="table table-bordered table-hover align-middle">
+
+                <thead class="table-dark">
+                    <tr>
+                        <th>Token</th>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for appt in appointments %}
+                    <tr>
+
+                        <!-- TOKEN -->
+                        <td>
+                            <span class="badge bg-primary">
+                                {{ appt.token_number }}
+                            </span>
+                        </td>
+                        <!--patientname-->
+                        <td>
+                            {{ appt.patient.patientprofile.full_name }}
+                        </td>
+
+                        <!-- DATE -->
+                        <td>
+                            {{ appt.appointment_date }}
+                        </td>
+
+                        <!-- STATUS -->
+                        <td>
+                            {% if appt.status == "ONGOING" %}
+                                <span class="badge bg-warning text-dark">Ongoing</span>
+                            {% elif appt.status == "COMPLETED" %}
+                                <span class="badge bg-success">Completed</span>
+                            {% else %}
+                                <span class="badge bg-light text-dark">{{ appt.status }}</span>
+                            {% endif %}
+                        </td>
+
+                        <!-- ACTIONS -->
+                        <td style="min-width: 50px;">
+
+                            <!-- STATUS UPDATE -->
+                            <form method="POST" action="{% url 'update_appointment_status' %}">
+                                {% csrf_token %}
+
+                                <input type="hidden" name="appointment_id" value="{{ appt.id }}">
+
+                                <select name="status" class="form-select form-select-sm mb-2">
+                                    <option value="ONGOING">Ongoing</option>
+                                    <option value="COMPLETED">Completed</option>
+                                </select>
+
+                                <button class="btn btn-primary btn-sm w-100">
+                                    Update
+                                </button>
+                            </form>
+
+                            <!-- PRESCRIPTION UPLOAD -->
+                            <a href="{% url 'upload_prescription' appt.id %}"
+                               class="btn btn-success btn-sm w-100 mt-2">
+                                Upload Prescription
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            No appointments today
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

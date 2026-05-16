@@ -1,10 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+<div class="container mt-5">
+
+    <h3 class="mb-4">➕ Add New Doctor</h3>
+
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="row">
+            <!--image info-->
+            <div class="mb-3">
+                <label>Doctor Image</label>
+                <input type="file" name="image" class="form-control">
+            </div>
+
+            <!-- Login Info -->
+            <div class="col-md-6">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control mb-3" required>
+            </div>
+
+            <div class="col-md-6">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control mb-3" required>
+            </div>
+
+            <!-- Doctor Info -->
+            <div class="col-md-6">
+                <label>Doctor Name</label>
+                <input type="text" name="name" class="form-control mb-3" required>
+            </div>
+
+            <div class="col-md-6">
+                <label>Speciality</label>
+                <input type="text" name="speciality" class="form-control mb-3" required>
+            </div>
+
+            <div class="col-md-6">
+                <label>Experience (Years)</label>
+                <input type="number" name="experience" class="form-control mb-3" required>
+            </div>
+
+            <div class="col-md-6">
+                <label>Fees</label>
+                <input type="number" name="fees" class="form-control mb-3" required>
+            </div>
+
+            <div class="col-md-12">
+                <label>Address</label>
+                <textarea name="address" class="form-control mb-3" required></textarea>
+            </div>
+
+            <div class="col-md-12">
+                <label>About</label>
+                <textarea name="about" class="form-control mb-3"></textarea>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Create Doctor
+        </button>
+
+    </form>
+
+</div>
+
+{% endblock %}

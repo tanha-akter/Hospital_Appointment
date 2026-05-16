@@ -181,18 +181,18 @@
         {% if user.is_superuser %}
             <li><a class="dropdown-item" href="{% url 'add_doctor'%}">Add Doctor</a></li>
             <li><a class="dropdown-item" href="{% url 'doctor_list'%}">Doctor List</a></li>
-            <li><a class="dropdown-item" href="#">Appointments</a></li>
+            <li><a class="dropdown-item" href="{% url 'admin_appointments'%}">Appointments</a></li>
 
         <!-- if user is doctor -->
         {% elif user.role == "DOCTOR" %}
             <li><a class="dropdown-item" href="{% url 'doctor_profile'%}">My Profile</a></li>
-            <li><a class="dropdown-item" href="#">Appointments</a></li>
+            <li><a class="dropdown-item" href="{% url 'doctor_appointments' %}">Appointments</a></li>
 
         <!-- if the user is patient-->
         {% elif user.role == "PATIENT" %}
             <li><a class="dropdown-item" href="{% url 'patient_profile'%}">My Profile</a></li>
-            <li><a class="dropdown-item" href="#">My Appointments</a></li>
-            <li><a class="dropdown-item" href="#">Notifications</a></li>
+            <li><a class="dropdown-item" href="{% url 'my_appointments'%}">My Appointments</a></li>
+            <li><a class="dropdown-item" href="{% url 'notifications_page'%}">Notifications</a></li>
         {% endif %}
 
             <li><hr class="dropdown-divider"></li>

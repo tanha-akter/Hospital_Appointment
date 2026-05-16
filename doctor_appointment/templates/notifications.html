@@ -1,10 +1,71 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .notif-card {
+        background: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 12px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: 0.2s;
+    }
+
+    .notif-card:hover {
+        transform: translateY(-2px);
+    }
+
+    .unread {
+        border-left: 4px solid #0d6efd;
+        background-color: #f8fbff;
+    }
+
+    .time {
+        font-size: 0.85rem;
+        color: #6c757d;
+    }
+</style>
+
+<div class="container mt-5">
+
+    <h3 class="mb-4 text-center">🔔 Notifications</h3>
+
+    {% for n in notifications %}
+
+        <div class="notif-card {% if not n.is_read %}unread{% endif %}">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <div>
+                    <p class="mb-1 {% if not n.is_read %}fw-bold{% endif %}">
+                        {{ n.message }}
+                    </p>
+
+                    <div class="time">
+                        {{ n.created_at|date:"d M Y | h:i A" }}
+                    </div>
+                </div>
+
+                {% if not n.is_read %}
+                    <span class="badge bg-primary">New</span>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    {% empty %}
+        <div class="text-center text-muted">
+            No notifications yet.
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

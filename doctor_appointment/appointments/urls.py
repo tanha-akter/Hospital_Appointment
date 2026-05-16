@@ -19,5 +19,14 @@ from django.urls import path
 from .import views
 
 urlpatterns = [
+ path('book/<int:pk>/', views.book_appointment, name='book_appointment'),
+    path('notifications/', views.notifications_page, name='notifications_page'),
+    path('my_appointments/', views.my_appointments, name='my_appointments'),
+path('upload/<int:appointment_id>/',views.upload_prescription, name='upload_prescription'),
+    path('doctor_appointments/', views.doctor_appointments,name='doctor_appointments'),
+    path('update-status/', views.update_appointment_status,name='update_appointment_status'),
+    path('admin-appointments/', views.admin_appointments, name='admin_appointments'),
+    path('cancel-appointment/<int:appointment_id>/', views.cancel_appointment_admin, name='cancel_appointment_admin'),
+    path('patient-cancel/<int:appointment_id>/', views.cancel_appointment_patient, name='cancel_appointment_patient'),
 
 ]

@@ -1,10 +1,214 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+<style>
+
+    body{
+        background-color: #f8f9ff;
+    }
+
+
+    .CANCELLED{
+    background-color: #f8d7da;
+    color: #842029;
+    }
+
+
+    .table-container{
+        background: white;
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        margin-top: 40px;
+    }
+
+    .table-title{
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .table thead th{
+        border-bottom: 1px solid #eee;
+        color: #666;
+        font-weight: 500;
+        padding: 15px;
+    }
+
+    .table tbody td{
+        padding: 15px;
+        vertical-align: middle;
+        border-bottom: 1px solid #f1f1f1;
+    }
+
+    .avatar{
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+        background: #eee;
+    }
+
+    .user-info{
+        display: flex;
+        align-items: center;
+    }
+
+    .status-badge{
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 500;
+    }
+
+    .WAITING{
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .ONGOING{
+        background-color: #cff4fc;
+        color: #055160;
+    }
+
+    .COMPLETED{
+        background-color: #d1e7dd;
+        color: #0f5132;
+    }
+
+    .NOT_PRESENT{
+        background-color: #f8d7da;
+        color: #842029;
+    }
+
+    .MISSED{
+        background-color: #e2e3e5;
+        color: #41464b;
+    }
+
+</style>
+
+<div class="container">
+
+    <div class="table-container">
+
+        <h2 class="table-title">
+            All Appointments
+        </h2>
+
+        <div class="table-responsive">
+
+            <table class="table align-middle">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Patient</th>
+                        <th>Doctor</th>
+                        <th>Date</th>
+                        <th>Token</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for appointment in appointments %}
+
+                    <tr>
+
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+
+                        <!-- PATIENT -->
+                        <td>
+                            <div class="user-info">
+
+                                {% if appointment.patient.patientprofile.image %}
+                                    <img src="{{ appointment.patient.patientprofile.image.url }}"
+                                         class="avatar">
+                                {% else %}
+                                    <img src="https://via.placeholder.com/38"
+                                         class="avatar">
+                                {% endif %}
+
+                                {{ appointment.patient.patientprofile.full_name }}
+
+                            </div>
+                        </td>
+
+                        <!-- DOCTOR -->
+                        <td>
+                            <div class="user-info">
+
+                                {% if appointment.doctor.image %}
+                                    <img src="{{ appointment.doctor.image.url }}"
+                                         class="avatar">
+                                {% else %}
+                                    <img src="https://via.placeholder.com/38"
+                                         class="avatar">
+                                {% endif %}
+
+                                Dr. {{ appointment.doctor.name }}
+
+                            </div>
+                        </td>
+
+                        <!-- DATE -->
+                        <td>
+                            {{ appointment.appointment_date }}
+                        </td>
+
+                        <!-- TOKEN -->
+                        <td>
+                            #{{ appointment.token_number }}
+                        </td>
+
+                        <!-- STATUS -->
+                        <td>
+
+                             {% if appointment.status == "WAITING" %}
+
+                                 <form method="POST" action="{% url 'cancel_appointment_admin' appointment.id %}">
+
+                                  {% csrf_token %}
+
+                                     <button type="submit" class="btn btn-sm btn-danger">Cancel</button>
+                                 </form>
+                            {% else %}
+
+        <span class="status-badge {{ appointment.status }}">
+            {{ appointment.status }}
+        </span>
+
+    {% endif %}
+
+</td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="6" class="text-center">
+                            No appointments found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
