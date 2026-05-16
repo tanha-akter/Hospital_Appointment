@@ -1,6 +1,5 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html"%}
+{% block content%}
 
 <style>
     *{
@@ -144,16 +143,14 @@
         </div>
 
         {% if form.errors %}
-    <div style="color: red; margin-bottom: 15px;">
-        {{ form.errors }}
-    </div>
-{% endif %}
+        <div style="color: red; margin-bottom: 15px;">
+            {{ form.errors }}
+        </div>
+        {% endif %}
         <form method="POST">
 
             {% csrf_token %}
-
-            <!-- Username -->
-
+            <!--this is for username-->
             <div class="form-group">
                 <div class="input-wrapper">
                     <input type="text" name="username" required placeholder=" ">
@@ -161,8 +158,7 @@
                 </div>
             </div>
 
-            <!-- Email -->
-
+            <!-- this is for email -->
             <div class="form-group">
                 <div class="input-wrapper">
                     <input type="email" name="email" required placeholder=" ">
@@ -171,8 +167,7 @@
             </div>
 
 
-            <!-- Password -->
-
+            <!-- this one is for password-->
             <div class="form-group">
                 <div class="input-wrapper">
                     <input type="password" name="password1" required placeholder=" ">
@@ -180,8 +175,7 @@
                 </div>
             </div>
 
-            <!-- Confirm Password -->
-
+            <!-- again confirm password -->
             <div class="form-group">
                 <div class="input-wrapper">
                     <input type="password" name="password2" required placeholder=" ">
@@ -195,13 +189,14 @@
 
         </form>
 
+
         <div class="login-link">
             Already have an account?
-            <a href="#">Sign In</a>
+            <a href="{% url 'login'%}">Sign In</a>
         </div>
 
     </div>
 
 </section>
 
-{% endblock %}
+{% endblock%}

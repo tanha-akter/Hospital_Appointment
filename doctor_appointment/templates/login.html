@@ -1,5 +1,4 @@
 {% extends "base.html"%}
-
 {% block content%}
 
 <style>
@@ -137,7 +136,6 @@
                     <input type="password" name="password" id="password" placeholder=" " required>
                     <label>Password</label>
 
-                    <button type="button" class="password-toggle" id="toggleBtn">👁️</button>
                 </div>
             </div>
 
@@ -146,22 +144,11 @@
 
         <div class="signup-link">
             Don't have an account?
-            <a href="#">Create one</a>
+            <a href="{% url 'create_account'%}">Create one</a>
         </div>
 
     </div>
 
 </div>
-
-<script>
-const toggleBtn = document.getElementById('toggleBtn');
-const passwordInput = document.getElementById('password');
-
-toggleBtn.addEventListener('click', () => {
-    const type = passwordInput.type === "password" ? "text" : "password";
-    passwordInput.type = type;
-    toggleBtn.textContent = type === "password" ? "👁️" : "🙈";
-});
-</script>
 
 {% endblock%}

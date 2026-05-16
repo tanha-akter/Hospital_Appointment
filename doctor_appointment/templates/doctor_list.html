@@ -1,10 +1,223 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html"%}
+{% block content%}
 
-</body>
-</html>
+<style>
+    body {
+        background-color: #ffffff;
+        color: #4b5563;
+    }
+
+    .search-container {
+        padding: 40px 0;
+        text-align: left;
+    }
+
+    .search-input {
+        max-width: 500px;
+        border-radius: 8px;
+        border: 1px solid #e5e7eb;
+        padding: 10px 15px;
+    }
+
+    .filter-btn {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 8px 16px;
+        margin-bottom: 8px;
+        border: 1px solid #e5e7eb;
+        background: white;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #4b5563;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+        background-color: #ebefff;
+        border-color: #5f6fff;
+    }
+
+    .doctor-card {
+        border: 1px solid #c9d8ff;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        height: 100%;
+        background: white;
+    }
+
+    .doctor-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    .img-container {
+        background-color: #eaefff;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 200px;
+    }
+
+    .img-container img {
+        max-height: 100%;
+        width: auto;
+    }
+
+    .status-indicator {
+        color: #059669;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 5px;
+    }
+
+    .status-dot {
+        height: 6px;
+        width: 6px;
+        background-color: #059669;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .doc-name {
+        font-weight: 600;
+        font-size: 18px;
+        color: #1f2937;
+        margin-bottom: 2px;
+    }
+
+    .doc-specialty {
+        font-size: 14px;
+        color: #6b7280;
+    }
+</style>
+
+<div class="container my-4">
+
+    <!-- search korar jonno -->
+    <div class="search-container">
+
+
+    <form method="GET" action="{% url 'search_doctors' %}">
+
+        <input
+            type="text"
+            name="q"
+            class="form-control search-input"
+            placeholder="Search doctors by name or specialty..."
+        >
+
+    </form>
+
+</div>
+
+    <div class="row">
+
+        <!-- Side bar a ja ja thakbe-->
+        <div class="col-md-3 col-lg-2 mb-4">
+            <div class="d-flex flex-column">
+
+    <a href="{% url 'doctor_list'%}" class="filter-btn {% if not active_speciality %}active{% endif %}">
+        All Doctors
+    </a>
+
+
+    <a href="?speciality=Cardiologist" class="filter-btn {% if active_speciality == 'General physician' %}active{% endif %}">
+        Cardiologist
+    </a>
+
+    <a href="?speciality=Dermatologist" class="filter-btn {% if active_speciality == 'Dermatologist' %}active{% endif %}">
+        Dermatologist
+    </a>
+
+    <a href="?speciality=Gastroenterologist" class="filter-btn {% if active_speciality == 'Gastroenterologist' %}active{% endif %}">
+        Gastroenterologist
+    </a>
+
+
+    <a href="?speciality=General physician" class="filter-btn {% if active_speciality == 'General physician' %}active{% endif %}">
+        General physician
+    </a>
+
+    <a href="?speciality=Gynocologist" class="filter-btn {% if active_speciality == 'Gynocologist' %}active{% endif %}">
+        Gynocologist
+    </a>
+
+    <a href="?speciality=Neurologist" class="filter-btn {% if active_speciality == 'Neurologist' %}active{% endif %}">
+        Neurologist
+    </a>
+
+    <a href="?speciality=Orthopedic" class="filter-btn {% if active_speciality == 'Neurologist' %}active{% endif %}">
+        Orthopedic
+    </a>
+
+
+    <a href="?speciality=Pediatricians" class="filter-btn {% if active_speciality == 'Pediatrician' %}active{% endif %}">
+        Pediatrician
+    </a>
+
+</div>
+        </div>
+
+        <!-- doctor list -->
+        <div class="col-md-9 col-lg-10">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+                {% for doctor in doctors %}
+                <div class="col">
+                    <a href="{% url 'doctor_detail' doctor.id %}" style="text-decoration:none; color:inherit;">
+                        <div class="doctor-card">
+
+                            <div class="img-container">
+
+                            {% if doctor.image %}
+                                <img src="{{ doctor.image.url }}" alt="Doctor">
+                            {% else %}
+                                <img src="https://via.placeholder.com/200x250/eaefff/000000?text=Doctor">
+                            {% endif %}
+                            </div>
+
+            <div class="card-body p-3">
+
+                {% if doctor.is_available %}
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        Available
+                    </div>
+                {% else %}
+                    <div class="status-indicator text-danger">
+                        <span class="status-dot bg-danger"></span>
+                        Not Available
+                    </div>
+                {% endif %}
+
+                <h5 class="doc-name">
+                    Dr. {{ doctor.name }}
+                </h5>
+
+                <p class="doc-specialty">
+                    {{ doctor.speciality }}
+                </p>
+
+            </div>
+
+        </div>
+
+    </a>
+
+</div>
+{% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

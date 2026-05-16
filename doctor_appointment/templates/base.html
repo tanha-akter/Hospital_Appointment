@@ -102,7 +102,7 @@
 
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<!-- navbar begins here-->
 <nav class="navbar navbar-expand-lg custom-navbar">
     <div class="container">
 
@@ -153,64 +153,68 @@
         <div class="d-flex align-items-center">
 
 {% if user.is_authenticated %}
-
-<!-- ================= DROPDOWN ================= -->
+<!-- dropdown -->
 <div class="dropdown">
 
     <a class="nav-link login-btn dropdown-toggle" href="#" data-bs-toggle="dropdown">
-        👤 {{ user.username }}
+        👤 Hello,
+        {%if user.is_superuser%}
+            Admin
+        {%elif user.role == "DOCTOR"%}
+            Doctor
+        {%elif user.role == "PATIENT"%}
+            Patient
+        {%else%}
+            User
+        {%endif%}
     </a>
 
     <ul class="dropdown-menu dropdown-menu-end">
 
-        <!-- ADMIN -->
+        <!-- if user is admin -->
         {% if user.is_superuser %}
-            <li><a class="dropdown-item" href="#">Admin Dashboard</a></li>
             <li><a class="dropdown-item" href="#">Add Doctor</a></li>
             <li><a class="dropdown-item" href="#">Doctor List</a></li>
             <li><a class="dropdown-item" href="#">Appointments</a></li>
 
-        <!-- DOCTOR -->
+        <!-- if user is doctor -->
         {% elif user.role == "DOCTOR" %}
-            <li><a class="dropdown-item" href="#">Doctor Dashboard</a></li>
             <li><a class="dropdown-item" href="#">My Profile</a></li>
             <li><a class="dropdown-item" href="#">Appointments</a></li>
 
-        <!-- PATIENT -->
+        <!-- if the user is patient-->
         {% elif user.role == "PATIENT" %}
             <li><a class="dropdown-item" href="#">My Profile</a></li>
             <li><a class="dropdown-item" href="#">My Appointments</a></li>
-        <li><a class="dropdown-item" href="#">Notifications</a></li>
+            <li><a class="dropdown-item" href="#">Notifications</a></li>
         {% endif %}
 
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
 
-    </ul>
-</div>
+        </ul>
+    </div>
 
-{% else %}
+{% else%}
+<!-- if no one is logged in then-->
 
-<!-- ================= NOT LOGGED IN ================= -->
-
-<a class="nav-link login-btn ms-2" href="#">
+<a class="nav-link login-btn ms-2" href="{% url 'create_account'%}">
     Create Account
 </a>
 
-{% endif %}
+{% endif%}
 
-</div>
-
+    </div>
     </div>
 </nav>
 
-<!-- ================= CONTENT ================= -->
+<!-- content inside the header and footer-->
 <div class="content">
     {% block content %}
     {% endblock %}
 </div>
 
-<!-- ================= FOOTER ================= -->
+<!-- this is the footer for the every page -->
 <footer class="footer">
     <p>© 2026 appointMED. All Rights Reserved.</p>
 </footer>
