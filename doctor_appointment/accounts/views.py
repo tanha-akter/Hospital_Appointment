@@ -4,6 +4,8 @@ from .forms import CustomUserCreationForm
 from .models import PatientProfile
 from django.contrib.auth.decorators import login_required
 
+
+
 # Create your views here.
 def register_view(request):
     if request.method == "POST":
@@ -55,3 +57,68 @@ def login_view(request):
             })
 
     return render(request, "login.html")
+
+
+@login_required
+def patient_profile(request):
+
+    profile = request.user.patientprofile
+    edit_mode = request.GET.get('edit') == 'true'
+
+    if request.method == "POST":
+
+        profile.full_name = request.POST.get('full_name')
+        profile.phone = request.POST.get('phone')
+        profile.address = request.POST.get('address')
+        profile.gender = request.POST.get('gender')
+        profile.date_of_birth = request.POST.get('date_of_birth')
+
+        if request.FILES.get('image'):
+            profile.image = request.FILES.get('image')
+
+        profile.save()
+        return redirect('patient_profile')
+
+    context = {
+        'profile': profile,
+        'edit_mode': edit_mode,
+    }
+
+    return render(request, 'patient_profile.html', context )
+
+
+@login_required
+def doctor_profile(request):
+
+    profile = request.user.doctorprofile
+    edit_mode = request.GET.get('edit') == 'true'
+
+    if request.method == "POST":
+
+        profile.name = request.POST.get('name')
+        profile.speciality = request.POST.get('speciality')
+        profile.experience = request.POST.get('experience')
+        profile.address = request.POST.get('address')
+        profile.fees = request.POST.get('fees')
+        profile.about = request.POST.get('about')
+        profile.is_available = request.POST.get('is_available') == 'True'
+
+        if request.FILES.get('image'):
+            profile.image = request.FILES.get('image')
+
+        profile.save()
+
+        return redirect('doctor_profile')
+
+    context = {
+        'profile': profile,
+        'edit_mode': edit_mode,
+    }
+
+    return render(request, 'doctor_profile.html', context)
+
+
+def logout_view(request):
+
+    logout(request)
+    return redirect('home')

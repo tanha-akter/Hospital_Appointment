@@ -1,0 +1,307 @@
+{% extends "base.html"%}
+{% block content %}
+
+<style>
+
+    body {
+        background-color: #ffffff;
+        color: #4b5563;
+    }
+
+    .checker-container {
+        max-width: 1000px;
+        margin: auto;
+        padding: 40px 20px;
+    }
+
+    .form-box {
+        background: #f8f9ff;
+        border: 1px solid #dbe4ff;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 40px;
+    }
+
+    .form-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 10px;
+    }
+
+    .form-subtitle {
+        color: #6b7280;
+        margin-bottom: 25px;
+    }
+
+    .symptom-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 15px;
+    }
+
+    .symptom-option {
+        background: white;
+        border: 1px solid #dbe4ff;
+        border-radius: 10px;
+        padding: 12px 15px;
+        transition: 0.3s ease;
+    }
+
+    .symptom-option:hover {
+        border-color: #5f6fff;
+        background: #eef2ff;
+    }
+
+    .submit-btn {
+        margin-top: 25px;
+        background-color: #5f6fff;
+        border: none;
+        padding: 12px 35px;
+        border-radius: 30px;
+        color: white;
+        font-weight: 600;
+        transition: 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background-color: #4a58e6;
+    }
+
+    .result-title {
+        margin-bottom: 30px;
+        font-weight: 700;
+        color: #111827;
+    }
+
+    .doctor-card {
+        border: 1px solid #c9d8ff;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        height: 100%;
+        background: white;
+    }
+
+    .doctor-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+    }
+
+    .img-container {
+        background-color: #eaefff;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        height: 220px;
+    }
+
+    .img-container img {
+        max-height: 100%;
+        width: auto;
+    }
+
+    .status-indicator {
+        color: #059669;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 5px;
+    }
+
+    .status-dot {
+        height: 6px;
+        width: 6px;
+        background-color: #059669;
+        border-radius: 50%;
+        display: inline-block;
+    }
+
+    .doc-name {
+        font-weight: 600;
+        font-size: 18px;
+        color: #1f2937;
+        margin-bottom: 2px;
+    }
+
+    .doc-specialty {
+        font-size: 14px;
+        color: #6b7280;
+    }
+
+</style>
+
+<div class="checker-container">
+
+    <!-- FORM -->
+    <div class="form-box">
+
+        <h1 class="form-title">
+            Symptom Checker
+        </h1>
+
+        <p class="form-subtitle">
+            Select your symptom and get recommended specialists.
+        </p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="symptom-grid">
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Fever" required>
+                    Fever
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Cold & Cough">
+                    Cold & Cough
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Headache">
+                    Headache
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Dizziness">
+                    Dizziness
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Skin Rash">
+                    Skin Rash
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Acne">
+                    Acne
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Child Fever">
+                    Child Fever
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Child Cold">
+                    Child Cold
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Pregnancy Issues">
+                    Pregnancy Issues
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Stomach Pain">
+                    Stomach Pain
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Vomiting">
+                    Vomiting
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Bone Pain">
+                    Bone Pain
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Joint Pain">
+                    Joint Pain
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Chest Pain">
+                    Chest Pain
+                </label>
+
+                <label class="symptom-option">
+                    <input type="radio" name="symptom" value="Heart Problem">
+                    Heart Problem
+                </label>
+
+            </div>
+
+            <button type="submit" class="submit-btn">
+                Check Doctors
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- RESULTS -->
+    {% if doctors %}
+
+    <h3 class="result-title">
+        Recommended Specialist:
+        {{ speciality }}
+    </h3>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+
+        {% for doctor in doctors %}
+
+        <div class="col">
+
+            <a href="{% url 'doctor_detail' doctor.id %}"
+               style="text-decoration:none; color:inherit;">
+
+                <div class="doctor-card">
+
+                    <div class="img-container">
+
+                        {% if doctor.image %}
+                            <img src="{{ doctor.image.url }}" alt="Doctor">
+                        {% else %}
+                            <img src="https://via.placeholder.com/200x250/eaefff/000000?text=Doctor">
+                        {% endif %}
+
+                    </div>
+
+                    <div class="card-body p-3">
+
+                        {% if doctor.is_available %}
+                            <div class="status-indicator">
+                                <span class="status-dot"></span>
+                                Available
+                            </div>
+                        {% else %}
+                            <div class="status-indicator text-danger">
+                                <span class="status-dot bg-danger"></span>
+                                Not Available
+                            </div>
+                        {% endif %}
+
+                        <h5 class="doc-name">
+                            Dr. {{ doctor.name }}
+                        </h5>
+
+                        <p class="doc-specialty">
+                            {{ doctor.speciality }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

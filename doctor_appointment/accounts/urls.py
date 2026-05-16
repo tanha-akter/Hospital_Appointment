@@ -21,4 +21,7 @@ from .import views
 urlpatterns = [
     path('create_account/', views.register_view, name='create_account'),
     path('login/', views.login_view, name='login'),
+    path('patient_profile/', views.patient_profile, name='patient_profile'),
+    path('doctor_profile/', views.doctor_profile, name='doctor_profile'),
+    path('logout/', views.logout_view, name='logout'),
 ]

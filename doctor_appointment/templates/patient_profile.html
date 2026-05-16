@@ -1,10 +1,270 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+<style>
+
+body{
+    background: #f8fafc;
+}
+
+.profile-wrapper{
+    padding: 50px 0;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.profile-card{
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width:850px;
+}
+
+.profile-pic{
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #f1f5f9;
+}
+
+.user-name{
+    font-size: 35px;
+    font-weight: 600;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.section-title{
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    color: #555;
+    text-decoration: underline;
+}
+
+.info-row{
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    margin-bottom: 20px;
+}
+
+.info-label{
+    font-weight: 600;
+}
+
+.info-value{
+    color: #5f6fff;
+}
+
+.form-control,
+.form-select{
+    max-width: 300px;
+}
+
+.btn-edit{
+    border-radius: 30px;
+    padding: 10px 30px;
+}
+
+</style>
+
+<div class="container profile-wrapper">
+
+    <div class="profile-card">
+
+        <!-- this is for image -->
+
+        {% if profile.image %}
+            <img src="{{ profile.image.url }}" class="profile-pic">
+        {% else %}
+            <img src="https://via.placeholder.com/170" class="profile-pic">
+        {% endif %}
+
+        <!-- shudhu dekhar jonno -->
+
+        {% if not edit_mode %}
+
+            <h1 class="user-name">
+                {{ profile.full_name }}
+            </h1>
+
+            <div class="mb-5">
+
+                <h6 class="section-title">
+                    Contact Information
+                </h6>
+
+                <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value">{{ request.user.email }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Phone:</span>
+                    <span class="info-value">{{ profile.phone }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Address:</span>
+                    <span>{{ profile.address }}</span>
+                </div>
+
+            </div>
+
+            <div>
+
+                <h6 class="section-title">
+                    Basic Information
+                </h6>
+
+                <div class="info-row">
+                    <span class="info-label">Gender:</span>
+                    <span>{{ profile.gender }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Birthday:</span>
+                    <span>{{ profile.date_of_birth }}</span>
+                </div>
+
+            </div>
+
+            <a href="?edit=true" class="btn btn-dark btn-edit mt-4">
+                Edit Profile
+            </a>
+
+        {% else %}
+
+        <!-- edit korte chaile -->
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <h1 class="user-name">
+
+                <input
+                    type="text"
+                    name="full_name"
+                    value="{{ profile.full_name }}"
+                    class="form-control"
+                >
+
+            </h1>
+
+            <div class="mb-5">
+
+                <h6 class="section-title">
+                    Contact Information
+                </h6>
+
+                <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span>{{ request.user.email }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Phone:</span>
+
+                    <input
+                        type="text"
+                        name="phone"
+                        value="{{ profile.phone }}"
+                        class="form-control"
+                    >
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Address:</span>
+
+                    <textarea
+                        name="address"
+                        class="form-control"
+                    >{{ profile.address }}</textarea>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Image:</span>
+
+                    <input
+                        type="file"
+                        name="image"
+                        class="form-control"
+                    >
+                </div>
+
+            </div>
+
+            <div>
+
+                <h6 class="section-title">
+                    Basic Information
+                </h6>
+
+                <div class="info-row">
+                    <span class="info-label">Gender:</span>
+
+                    <select name="gender" class="form-select">
+
+                        <option value="MALE"
+                        {% if profile.gender == "MALE" %}
+                        selected
+                        {% endif %}
+                        >
+                            Male
+                        </option>
+
+                        <option value="FEMALE"
+                        {% if profile.gender == "FEMALE" %}
+                        selected
+                        {% endif %}
+                        >
+                            Female
+                        </option>
+
+                        <option value="OTHER"
+                        {% if profile.gender == "OTHER" %}
+                        selected
+                        {% endif %}
+                        >
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Birthday:</span>
+
+                    <input
+                        type="date"
+                        name="date_of_birth"
+                        value="{{ profile.date_of_birth|date:'Y-m-d' }}"
+                        class="form-control"
+                    >
+                </div>
+
+            </div>
+
+            <button class="btn btn-dark btn-edit mt-4">
+                Save Information
+            </button>
+
+        </form>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

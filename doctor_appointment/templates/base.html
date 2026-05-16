@@ -129,7 +129,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link {% if request.resolver_match.url_name == 'doctor_list' %}active{% endif %}"
-                       href="#">
+                       href="{% url 'doctor_list'%}">
                         All Doctors
                     </a>
                 </li>
@@ -143,6 +143,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">
                         Contact
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                     <a class="nav-link" href="{% url 'symptom_checker' %}">
+                         Symptom Checker
                     </a>
                 </li>
 
@@ -173,24 +179,24 @@
 
         <!-- if user is admin -->
         {% if user.is_superuser %}
-            <li><a class="dropdown-item" href="#">Add Doctor</a></li>
-            <li><a class="dropdown-item" href="#">Doctor List</a></li>
+            <li><a class="dropdown-item" href="{% url 'add_doctor'%}">Add Doctor</a></li>
+            <li><a class="dropdown-item" href="{% url 'doctor_list'%}">Doctor List</a></li>
             <li><a class="dropdown-item" href="#">Appointments</a></li>
 
         <!-- if user is doctor -->
         {% elif user.role == "DOCTOR" %}
-            <li><a class="dropdown-item" href="#">My Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'doctor_profile'%}">My Profile</a></li>
             <li><a class="dropdown-item" href="#">Appointments</a></li>
 
         <!-- if the user is patient-->
         {% elif user.role == "PATIENT" %}
-            <li><a class="dropdown-item" href="#">My Profile</a></li>
+            <li><a class="dropdown-item" href="{% url 'patient_profile'%}">My Profile</a></li>
             <li><a class="dropdown-item" href="#">My Appointments</a></li>
             <li><a class="dropdown-item" href="#">Notifications</a></li>
         {% endif %}
 
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+            <li><a class="dropdown-item text-danger" href="{% url 'logout'%}">Logout</a></li>
 
         </ul>
     </div>

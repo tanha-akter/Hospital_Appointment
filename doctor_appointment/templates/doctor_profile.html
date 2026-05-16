@@ -1,10 +1,291 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+
+<style>
+
+body{
+    background: #f8fafc;
+}
+
+.profile-wrapper{
+    padding: 50px 0;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+}
+
+.profile-card{
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width:850px;
+}
+
+.profile-pic{
+    width: 170px;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #f1f5f9;
+}
+
+.user-name{
+    font-size: 35px;
+    font-weight: 600;
+    margin-top: 25px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+}
+
+.section-title{
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    color: #555;
+    text-decoration: underline;
+}
+
+.info-row{
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    margin-bottom: 20px;
+}
+
+.info-label{
+    font-weight: 600;
+}
+
+.info-value{
+    color: #5f6fff;
+}
+
+.form-control,
+.form-select,
+textarea{
+    max-width: 400px;
+}
+
+.btn-edit{
+    border-radius: 30px;
+    padding: 10px 30px;
+}
+
+</style>
+
+<div class="container profile-wrapper">
+
+    <div class="profile-card">
+
+        {% if profile.image %}
+            <img src="{{ profile.image.url }}" class="profile-pic">
+        {% else %}
+            <img src="https://via.placeholder.com/170" class="profile-pic">
+        {% endif %}
+
+        {% if not edit_mode %}
+
+            <h1 class="user-name">
+                Dr. {{ profile.name }}
+            </h1>
+
+            <div class="mb-5">
+
+                <h6 class="section-title">
+                    Professional Information
+                </h6>
+
+                <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span class="info-value">{{ request.user.email }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Speciality:</span>
+                    <span>{{ profile.speciality }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Experience:</span>
+                    <span>{{ profile.experience }} Years</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Consultation Fee:</span>
+                    <span>৳ {{ profile.fees }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Address:</span>
+                    <span>{{ profile.address }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Availability:</span>
+
+                    {% if profile.is_available %}
+                        <span class="text-success">
+                            Available
+                        </span>
+                    {% else %}
+                        <span class="text-danger">
+                            Not Available
+                        </span>
+                    {% endif %}
+                </div>
+
+            </div>
+
+            <div>
+
+                <h6 class="section-title">
+                    About Doctor
+                </h6>
+
+                <p>
+                    {{ profile.about }}
+                </p>
+
+            </div>
+
+            <a href="?edit=true" class="btn btn-dark btn-edit mt-4">
+                Edit Profile
+            </a>
+
+        {% else %}
+
+        <form method="POST" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <h1 class="user-name">
+
+                <input
+                    type="text"
+                    name="name"
+                    value="{{ profile.name }}"
+                    class="form-control"
+                >
+
+            </h1>
+
+            <div class="mb-5">
+
+                <h6 class="section-title">
+                    Professional Information
+                </h6>
+
+                <div class="info-row">
+                    <span class="info-label">Email:</span>
+                    <span>{{ request.user.email }}</span>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Speciality:</span>
+
+                    <input
+                        type="text"
+                        name="speciality"
+                        value="{{ profile.speciality }}"
+                        class="form-control"
+                    >
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Experience:</span>
+
+                    <input
+                        type="number"
+                        name="experience"
+                        value="{{ profile.experience }}"
+                        class="form-control"
+                    >
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Consultation Fee:</span>
+
+                    <input
+                        type="number"
+                        name="fees"
+                        value="{{ profile.fees }}"
+                        class="form-control"
+                    >
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Address:</span>
+
+                    <textarea
+                        name="address"
+                        class="form-control"
+                    >{{ profile.address }}</textarea>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Availability:</span>
+
+                    <select name="is_available" class="form-select">
+
+                        <option value="True"
+                        {% if profile.is_available %}
+                        selected
+                        {% endif %}
+                        >
+                            Available
+                        </option>
+
+                        <option value="False"
+                        {% if not profile.is_available %}
+                        selected
+                        {% endif %}
+                        >
+                            Not Available
+                        </option>
+
+                    </select>
+                </div>
+
+                <div class="info-row">
+                    <span class="info-label">Image:</span>
+
+                    <input
+                        type="file"
+                        name="image"
+                        class="form-control"
+                    >
+                </div>
+
+            </div>
+
+            <div>
+
+                <h6 class="section-title">
+                    About Doctor
+                </h6>
+
+                <textarea
+                    name="about"
+                    rows="5"
+                    class="form-control"
+                >{{ profile.about }}</textarea>
+
+            </div>
+
+            <button class="btn btn-dark btn-edit mt-4">
+                Save Information
+            </button>
+
+        </form>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
