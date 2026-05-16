@@ -1,0 +1,77 @@
+:root {
+    --primary-blue: #1b4d89;
+    --light-bg: #f0f5fa;
+    --text-dark: #1a2b4b;
+}
+
+/* BASE */
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    overflow-x: hidden;
+}
+
+/* BACKGROUND */
+.bg-light-blue {
+    background: var(--light-bg);
+}
+
+/* BUTTON */
+.btn-primary-custom {
+    background: var(--primary-blue);
+    color: white;
+    border: none;
+    transition: 0.3s;
+}
+
+.btn-primary-custom:hover {
+    background: #123661;
+    transform: translateY(-3px);
+}
+
+/* HERO IMAGE FLOAT */
+
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+}
+
+/* CARDS (IMPROVED BUT SAME LOOK) */
+.expertise-card {
+    border-radius: 15px;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.expertise-card:hover {
+    transform: translateY(-10px);
+    background: var(--primary-blue);
+    color: white;
+}
+
+.expertise-card:hover i,
+.expertise-card:hover h5,
+.expertise-card:hover p {
+    color: white !important;
+}
+
+/* DOCTOR IMAGE */
+.doctor-circle-bg {
+    background: #dbe9f6;
+    padding: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    transition: 0.4s;
+}
+
+.doctor-circle-bg:hover {
+    transform: scale(1.05);
+}
+
+.doctor-circle-bg img {
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+}
