@@ -1,7 +1,130 @@
-{% extends 'base.html'%}
+{% extends 'base.html' %}
 {% load static %}
-{% block content%}
 
-HOMEPAGE
+{% block content %}
 
-{%endblock%}
+<!-- HERO -->
+<section class="hero-section py-5 overflow-hidden">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <div class="col-lg-6"
+                 data-aos="fade-right"
+                 data-aos-delay="100">
+
+                <h1 class="display-4 fw-bold hero-title">
+                    Your health, <br> Our priority
+                </h1>
+
+                <p class="text-muted my-4 fs-5"
+                   data-aos="fade-right"
+                   data-aos-delay="200">
+
+                    Our dedicated team is committed to providing comprehensive and compassionate care.
+                </p>
+
+                <button class="btn btn-primary-custom px-4 py-3 rounded-1 shadow-sm"
+                        data-aos="fade-right"
+                        data-aos-delay="300">
+                    Find Doctors
+                </button>
+            </div>
+
+            <div class="col-lg-6 text-center"
+                 data-aos="fade-left"
+                 data-aos-delay="200">
+
+                <div class="floating-animation">
+                    <img src="https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&q=80&w=800"
+                         class="img-fluid rounded-4 shadow-lg main-hero-img">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- EXPERTISE -->
+<section class="py-5 bg-light-blue">
+    <div class="container text-center">
+
+        <h2 class="fw-bold mb-5" data-aos="zoom-in">
+            Expertise & Specializations
+        </h2>
+
+        <div class="row g-4">
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card expertise-card p-4 shadow-sm">
+                    <i class="bi bi-tooth fs-1 text-primary"></i>
+                    <h5 class="fw-bold mt-3">Dental Care</h5>
+                    <p class="text-muted small">Routine and emergency dental services.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card expertise-card p-4 shadow-sm">
+                    <i class="bi bi-brain fs-1 text-primary"></i>
+                    <h5 class="fw-bold mt-3">Neurology</h5>
+                    <p class="text-muted small">Brain and nervous system care.</p>
+                </div>
+            </div>
+
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card expertise-card p-4 shadow-sm">
+                    <i class="bi bi-heart fs-1 text-primary"></i>
+                    <h5 class="fw-bold mt-3">Cardiology</h5>
+                    <p class="text-muted small">Heart disease treatment & care.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- WELLNESS -->
+<section class="py-5">
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6"
+                 data-aos="fade-right">
+
+                <h2 class="fw-bold">
+                    Start Your Wellness Journey Now
+                </h2>
+
+                <p class="text-muted mt-3">
+                    Take control of your health with expert doctors and personalized care.
+                </p>
+
+                <button class="btn btn-primary-custom mt-3">
+                    Contact Us
+                </button>
+            </div>
+
+            <div class="col-lg-6 text-center"
+                 data-aos="zoom-in">
+
+                <div class="doctor-circle-bg">
+                    <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&q=80&w=500"
+                         class="rounded-circle shadow">
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-5 bg-light-blue text-center">
+    <div class="container" data-aos="flip-up">
+        <h2 class="fw-bold">
+            We Have Lab Test Facilities, <br> Book Yours Today!
+        </h2>
+    </div>
+</section>
+
+{% endblock %}
