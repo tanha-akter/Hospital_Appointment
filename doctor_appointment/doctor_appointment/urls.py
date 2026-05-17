@@ -27,6 +27,7 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('reviews/', include('reviews.urls')),
     path('appointments/', include('appointments.urls')),
+    path('about/', views.about, name='about'),
 
 ]
 if settings.DEBUG:

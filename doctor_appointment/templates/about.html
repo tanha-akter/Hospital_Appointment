@@ -1,10 +1,443 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+<style>/* Reset */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Outfit', sans-serif;
+    background: #ffffff;
+    color: #1f1f1f;
+    line-height: 1.6;
+}
+
+
+/* Navbar */
+.navbar{
+    width: 90%;
+    margin: auto;
+    padding: 20px 0;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo{
+    font-size: 28px;
+    font-weight: 600;
+    color: #1f1f1f;
+}
+
+.logo span{
+    color: #5f6fff;
+}
+
+.nav-links{
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a{
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.nav-links li a.active {
+    color: #1f2937; /* Dark gray/black */
+    border-bottom: 2px solid #1f2937;
+}
+.btn-primary{
+    background: #5f6fff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+.btn-primary:hover{
+    background: #4d5df0;
+}
+
+
+/* Hero Section */
+.hero-section{
+    width: 90%;
+    margin: 40px auto;
+    background: #5f6fff;
+    border-radius: 30px;
+    padding: 60px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-content{
+    flex: 1;
+    color: white;
+}
+
+.hero-content h1{
+    font-size: 58px;
+    line-height: 1.2;
+    margin-bottom: 25px;
+}
+
+
+/* Users Section */
+.hero-users{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.user-images{
+    display: flex;
+}
+
+.user-images img{
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    margin-left: -12px;
+}
+
+.user-images img:first-child{
+    margin-left: 0;
+}
+
+.hero-users p{
+    max-width: 420px;
+    font-size: 15px;
+    color: #f3f3f3;
+}
+
+
+/* White Button */
+.btn-white{
+    display: inline-block;
+    background: white;
+    color: #333;
+    padding: 14px 26px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.btn-white:hover{
+    background: #f2f2f2;
+}
+
+
+/* Hero Image */
+.hero-image{
+    flex: 1;
+    text-align: center;
+}
+
+.hero-image img{
+    width: 100%;
+    max-width: 500px;
+}
+
+
+/* Specialty Section */
+.specialty-section{
+    width: 90%;
+    margin: 80px auto;
+    text-align: center;
+}
+
+.specialty-section h2{
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.subtitle{
+    max-width: 700px;
+    margin: auto;
+    color: #666;
+    margin-bottom: 50px;
+}
+
+.specialty-grid{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.specialty-item{
+    width: 150px;
+    text-align: center;
+}
+
+.icon-circle{
+    width: 90px;
+    height: 90px;
+    background: #eef2ff;
+    border-radius: 50%;
+    margin: auto auto 15px;
+}
+
+
+/* CTA Banner */
+.cta-banner{
+    width: 90%;
+    margin: 80px auto;
+    background: #5f6fff;
+    border-radius: 30px;
+    padding: 50px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+}
+
+.cta-text{
+    color: white;
+}
+
+.cta-text h2{
+    font-size: 42px;
+    margin-bottom: 25px;
+}
+
+.cta-image img{
+    width: 250px;
+}
+
+
+/* Footer */
+.footer{
+    width: 90%;
+    margin: 80px auto 30px;
+
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.footer-col{
+    flex: 1;
+    min-width: 220px;
+}
+
+.footer-col h4{
+    margin-bottom: 20px;
+}
+
+.footer-col ul{
+    list-style: none;
+}
+
+.footer-col ul li{
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.main-info p{
+    margin-top: 15px;
+    color: #666;
+    max-width: 300px;
+}
+
+
+/* Responsive */
+@media(max-width: 900px){
+
+    .hero-section,
+    .cta-banner{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-content h1{
+        font-size: 42px;
+    }
+
+    .hero-users{
+        flex-direction: column;
+    }
+
+    .navbar{
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-links{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+/* WHY CHOOSE US SECTION */
+.why-choose-us {
+    padding: 40px 8%;
+    margin-bottom: 80px;
+}
+
+.why-choose-us .sub-title {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: var(--text-gray);
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+/* WHY CHOOSE US SECTION */
+.why-choose-us {
+    padding: 40px 8%;
+    margin-bottom: 80px;
+}
+
+.benefits-grid {
+    display: flex;
+    width: 100%;
+    /* Create a border around the entire container */
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.benefit-card {
+    flex: 1;
+    padding: 50px 40px;
+    /* This creates the vertical lines between the three cards */
+    border-right: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Remove the border from the last card (Personalization) */
+.benefit-card:last-child {
+    border-right: none;
+}
+
+.benefit-card h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 15px;
+}
+
+.benefit-card p {
+    font-size: 0.85rem;
+    color: #4b5563;
+    line-height: 1.5;
+}
+
+/* Hover and Active State for the middle card */
+.benefit-card:hover,
+.benefit-card.active-card {
+    background-color: #5f6fff; /* Your primary blue */
+}
+
+.benefit-card:hover h4,
+.benefit-card:hover p,
+.benefit-card.active-card h4,
+.benefit-card.active-card p {
+    color: white;
+}
+/* Center the main title */
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 1.5rem;
+    color: #4b5563;
+}
+
+.section-title span {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+/* This is the magic part for the side-by-side layout */
+.about-content {
+    display: flex;         /* Makes children sit in a row */
+    gap: 50px;             /* Space between image and text */
+    align-items: flex-start;
+    max-width: 1000px;     /* Keeps content from stretching too wide */
+    margin: 0 auto;        /* Centers the whole block */
+}
+
+.about-image img {
+    width: 100%;
+    max-width: 350px;      /* Matches the design size */
+    border-radius: 4px;
+}
+
+.about-text {
+    flex: 1;               /* Allows text to take up remaining space */
+    color: #4b5563;
+    line-height: 1.6;      /* Better readability */
+}
+
+.vision-title {
+    margin-top: 20px;
+    font-size: 1.1rem;
+    color: #1f2937;
+}</style>
+
+
+
+
+
+    <section class="about-container">
+        <h2 class="section-title">ABOUT <span>US</span></h2>
+
+        <div class="about-content">
+            <div class="about-image">
+                <img src="doc.jpeg" alt="Our Doctors">
+            </div>
+
+            <div class="about-text">
+                <p>Welcome to Prescripto, your trusted partner in managing your healthcare needs conveniently and efficiently. At Prescripto, we understand the challenges individuals face when it comes to scheduling doctor appointments and managing their health records.</p>
+
+                <p>Prescripto is committed to excellence in healthcare technology. We continuously strive to enhance our platform, integrating the latest advancements to improve user experience and deliver superior service. Whether you're booking your first appointment or managing ongoing care, Prescripto is here to support you every step of the way.</p>
+
+                <h3 class="vision-title">Our Vision</h3>
+                <p>Our vision at Prescripto is to create a seamless healthcare experience for every user. We aim to bridge the gap between patients and healthcare providers, making it easier for you to access the care you need, when you need it.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="why-choose-us">
+        <h3 class="sub-title">WHY <span>CHOOSE US</span></h3>
+
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <h4>EFFICIENCY:</h4>
+                <p>Streamlined appointment scheduling that fits into your busy lifestyle.</p>
+            </div>
+
+            <div class="benefit-card">
+                <h4>CONVENIENCE:</h4>
+                <p>Access to a network of trusted healthcare professionals in your area.</p>
+            </div>
+
+            <div class="benefit-card">
+                <h4>PERSONALIZATION:</h4>
+                <p>Tailored recommendations and reminders to help you stay on top of your health.</p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
