@@ -1,71 +1,78 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html"%}
+{% block content%}
 
 <div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">➕ Add New Doctor</h3>
+                </div>
 
-    <h3 class="mb-4">➕ Add New Doctor</h3>
+                <div class="card-body p-4">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
 
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12 mb-3">
+                                <label class="form-label fw-bold">Doctor Image</label>
+                                <input type="file" name="image" class="form-control">
+                            </div>
 
-        <div class="row">
-            <!--image info-->
-            <div class="mb-3">
-                <label>Doctor Image</label>
-                <input type="file" name="image" class="form-control">
+                            <hr class="my-4">
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Email</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Password</label>
+                                <input type="password" name="password" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Doctor Name</label>
+                                <input type="text" name="name" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Speciality</label>
+                                <input type="text" name="speciality" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Experience (Years)</label>
+                                <input type="number" name="experience" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold">Fees</label>
+                                <input type="number" name="fees" class="form-control" required>
+                            </div>
+
+                            <div class="col-12 mb-3">
+                                <label class="form-label fw-bold">Address</label>
+                                <textarea name="address" class="form-control" rows="2" required></textarea>
+                            </div>
+
+                            <div class="col-12 mb-4">
+                                <label class="form-label fw-bold">About</label>
+                                <textarea name="about" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                Create Doctor Profile
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
             </div>
-
-            <!-- Login Info -->
-            <div class="col-md-6">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control mb-3" required>
-            </div>
-
-            <div class="col-md-6">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control mb-3" required>
-            </div>
-
-            <!-- Doctor Info -->
-            <div class="col-md-6">
-                <label>Doctor Name</label>
-                <input type="text" name="name" class="form-control mb-3" required>
-            </div>
-
-            <div class="col-md-6">
-                <label>Speciality</label>
-                <input type="text" name="speciality" class="form-control mb-3" required>
-            </div>
-
-            <div class="col-md-6">
-                <label>Experience (Years)</label>
-                <input type="number" name="experience" class="form-control mb-3" required>
-            </div>
-
-            <div class="col-md-6">
-                <label>Fees</label>
-                <input type="number" name="fees" class="form-control mb-3" required>
-            </div>
-
-            <div class="col-md-12">
-                <label>Address</label>
-                <textarea name="address" class="form-control mb-3" required></textarea>
-            </div>
-
-            <div class="col-md-12">
-                <label>About</label>
-                <textarea name="about" class="form-control mb-3"></textarea>
-            </div>
-
         </div>
-
-        <button type="submit" class="btn btn-primary">
-            Create Doctor
-        </button>
-
-    </form>
-
+    </div>
 </div>
 
-{% endblock %}
+{% endblock%}
