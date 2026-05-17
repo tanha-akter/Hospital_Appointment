@@ -1,10 +1,209 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block content %}
+<style>/* RESET & GLOBALS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Outfit', sans-serif;
+}
+
+body {
+    color: #1f2937;
+}
+
+/* NAVIGATION */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 8%;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1f2937;
+    display: flex;
+    align-items: center;
+}
+
+.logo-icon {
+    color: #5f6fff;
+    margin-right: 8px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #4b5563;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding-bottom: 4px;
+}
+
+.nav-links li a.active {
+    border-bottom: 2px solid #5f6fff; /* Blue line under active link */
+}
+
+.btn-account {
+    background-color: #5f6fff;
+    color: white;
+    padding: 10px 24px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+/* CONTACT SECTION */
+.contact-section {
+    padding: 60px 8%;
+    text-align: center;
+}
+
+.page-title {
+    font-size: 1.4rem;
+    color: #4b5563;
+    font-weight: 400;
+    margin-bottom: 40px;
+}
+
+.dark-text {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.contact-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.contact-img {
+    width: 100%;
+    max-width: 380px;
+    border-radius: 4px;
+}
+
+.sub-heading {
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 15px;
+    margin-top: 25px;
+}
+
+.text-gray {
+    color: #4b5563;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.btn-explore {
+    background: white;
+    border: 1px solid #1f2937;
+    padding: 16px 32px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.9rem;
+}
+
+.btn-explore:hover {
+    background-color: #1f2937;
+    color: white;
+}
+
+/* FOOTER SECTION */
+.footer {
+    padding: 80px 8% 20px 8%;
+    margin-top: 60px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 50px;
+    margin-bottom: 40px;
+}
+
+.about-col {
+    flex: 2; /* Wider column for the description */
+}
+
+.footer-col {
+    flex: 1;
+}
+
+.footer-logo {
+    margin-bottom: 20px;
+}
+
+.footer-desc {
+    max-width: 400px;
+}
+
+.footer-heading {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 10px;
+    color: #4b5563;
+    font-size: 0.9rem;
+}
+
+.footer-links li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.copyright-bar {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 20px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #4b5563;
+}</style>
+
+    <section class="contact-section">
+        <h2 class="page-title">CONTACT <span class="dark-text">US</span></h2>
+
+        <div class="contact-grid">
+            <div class="contact-img-container">
+                <img src="final.png" alt="Prescripto Office" class="contact-img">
+            </div>
+
+            <div class="contact-details">
+                <h3 class="sub-heading">OUR OFFICE</h3>
+                <p class="text-gray">54709 Willms Station<br>Suite 350, Washington, USA</p>
+
+                <p class="text-gray">Tel: (415) 555-0132<br>Email: greatstackdev@gmail.com</p>
+
+                <h3 class="sub-heading">CAREERS AT PRESCRIPTO</h3>
+                <p class="text-gray">Learn more about our teams and job openings.</p>
+
+                <button class="btn-explore">Explore Jobs</button>
+            </div>
+        </div>
+    </section>
+
+   {% endblock %}

@@ -28,6 +28,7 @@ urlpatterns = [
     path('reviews/', include('reviews.urls')),
     path('appointments/', include('appointments.urls')),
     path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
 
 ]
 if settings.DEBUG:
