@@ -49,7 +49,7 @@
 
     <div class="appointment-card d-flex flex-wrap align-items-center">
 
-        <!-- Doctor Image -->
+
         <div class="p-2">
             {% if a.doctor.image %}
                 <img src="{{ a.doctor.image.url }}" class="doctor-img">
@@ -58,7 +58,7 @@
             {% endif %}
         </div>
 
-        <!-- Details -->
+
         <div class="flex-grow-1 p-3">
 
             <h5 class="mb-1">Dr. {{ a.doctor.name }}</h5>
@@ -121,10 +121,10 @@
         </div>
 
 
-        <!-- Actions -->
+
         <div class="p-3 d-flex flex-column gap-2" style="min-width: 180px;">
 
-            <!-- CANCEL -->
+
             {% if a.status == "WAITING" %}
 
                 <form method="POST" action="{% url 'cancel_appointment_patient' a.id %}">
@@ -142,7 +142,7 @@
 
             {% endif %}
 
-            <!-- REVIEW -->
+
             {% if a.status == "COMPLETED" %}
 
                 {% if not a.review %}
@@ -156,7 +156,7 @@
 
             {% endif %}
 
-            <!-- PRESCRIPTION -->
+
             {% if a.prescription %}
 
                 <a href="{{ a.prescription.file.url }}"

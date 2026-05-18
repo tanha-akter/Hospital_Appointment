@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-
 from .models import Review
 from .forms import ReviewForm
 
@@ -15,15 +14,15 @@ def add_review(request, appointment_id):
         id=appointment_id
     )
 
-    # only patient can review
+    # ek matro patient e review korte parbe
     if request.user != appointment.patient:
         return redirect('home')
 
-    # only completed appointments
+    # appointment ek matro complete hole jabe
     if appointment.status != "COMPLETED":
         return redirect('my_appointments')
 
-    # prevent duplicate review
+    # keu duplicate review dite parbena
     if hasattr(appointment, 'review'):
         return redirect('my_appointments')
 

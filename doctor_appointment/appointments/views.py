@@ -14,7 +14,6 @@ def book_appointment(request, pk):
 
     today = date.today()
 
-    # Maximum booking date = tomorrow
     max_booking_date = today + timedelta(days=1)
 
     if request.method == "POST":
@@ -32,7 +31,7 @@ def book_appointment(request, pk):
 
         selected_date = date.fromisoformat(selected_date)
 
-        # Prevent past dates
+
         if selected_date < today:
             return render(request, "doctor_detail.html", {
                 "doctor": doctor,
@@ -41,7 +40,7 @@ def book_appointment(request, pk):
                 "max_booking_date": max_booking_date
             })
 
-        # Prevent booking beyond tomorrow
+
         if selected_date > max_booking_date:
             return render(request, "doctor_detail.html", {
                 "doctor": doctor,
@@ -65,13 +64,13 @@ def book_appointment(request, pk):
                 "max_booking_date": max_booking_date
             })
 
-        # Appointments for selected date
+
         day_appointments = Appointment.objects.filter(
             doctor=doctor,
             appointment_date=selected_date
         ).exclude(status='CANCELLED')
 
-        # Daily limit
+
         if day_appointments.count() >= 20:
 
             return render(request, "doctor_detail.html", {
@@ -81,7 +80,7 @@ def book_appointment(request, pk):
                 "max_booking_date": max_booking_date
             })
 
-        # Queue logic
+
         last_appt = day_appointments.order_by('-queue_position').first()
 
         if last_appt:
@@ -89,7 +88,7 @@ def book_appointment(request, pk):
         else:
             next_position = 1
 
-        # Create appointment
+
         appointment = Appointment.objects.create(
             patient=request.user,
             doctor=doctor,
@@ -98,7 +97,7 @@ def book_appointment(request, pk):
             queue_position=next_position
         )
 
-        # Notification
+
         Notification.objects.create(
             user=request.user,
             message=f"Appointment booked with Dr. {doctor.name} for {selected_date}. Token #{appointment.token_number}"
@@ -196,8 +195,7 @@ def update_appointment_status(request):
         doctor=doctor
     )
 
-    # If doctor marks one ONGOING,
-    # remove ongoing from others first
+
     if new_status == "ONGOING":
 
         Appointment.objects.filter(
@@ -215,7 +213,6 @@ def update_appointment_status(request):
 @login_required
 def admin_appointments(request):
 
-    # Only admin can access
     if not request.user.is_superuser:
         return redirect("home")
 
@@ -231,7 +228,7 @@ def admin_appointments(request):
 @require_POST
 def cancel_appointment_admin(request, appointment_id):
 
-    # Only admin
+
     if not request.user.is_superuser:
         return redirect("home")
 
@@ -240,7 +237,7 @@ def cancel_appointment_admin(request, appointment_id):
         id=appointment_id
     )
 
-    # Only pending appointments can be cancelled
+
     if appointment.status == "WAITING":
 
         appointment.status = "CANCELLED"
@@ -259,17 +256,17 @@ def cancel_appointment_patient(request, appointment_id):
         patient=request.user
     )
 
-    # Only waiting appointments can be cancelled
+
     if appointment.status != "WAITING":
         return redirect("my_appointments")
 
     old_queue_position = appointment.queue_position
 
-    # Mark as cancelled
+
     appointment.status = "CANCELLED"
     appointment.save()
 
-    # Shift queue positions
+
     Appointment.objects.filter(
         doctor=appointment.doctor,
         appointment_date=appointment.appointment_date,

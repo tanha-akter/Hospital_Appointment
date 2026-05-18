@@ -2,76 +2,14 @@
 {% load static %}
 
 {% block content %}
-<style>/* Reset */
+<style>
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    font-family: 'Outfit', sans-serif;
-    background: #ffffff;
-    color: #1f1f1f;
-    line-height: 1.6;
-}
 
-
-/* Navbar */
-.navbar{
-    width: 90%;
-    margin: auto;
-    padding: 20px 0;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo{
-    font-size: 28px;
-    font-weight: 600;
-    color: #1f1f1f;
-}
-
-.logo span{
-    color: #5f6fff;
-}
-
-.nav-links{
-    display: flex;
-    list-style: none;
-    gap: 30px;
-}
-
-.nav-links a{
-    text-decoration: none;
-    color: #333;
-    font-size: 15px;
-    font-weight: 500;
-}
-
-.nav-links li a.active {
-    color: #1f2937; /* Dark gray/black */
-    border-bottom: 2px solid #1f2937;
-}
-.btn-primary{
-    background: #5f6fff;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 15px;
-    transition: 0.3s;
-}
-
-.btn-primary:hover{
-    background: #4d5df0;
-}
-
-
-/* Hero Section */
 .hero-section{
     width: 90%;
     margin: 40px auto;
@@ -97,7 +35,6 @@ body{
 }
 
 
-/* Users Section */
 .hero-users{
     display: flex;
     align-items: center;
@@ -129,7 +66,6 @@ body{
 }
 
 
-/* White Button */
 .btn-white{
     display: inline-block;
     background: white;
@@ -146,7 +82,6 @@ body{
 }
 
 
-/* Hero Image */
 .hero-image{
     flex: 1;
     text-align: center;
@@ -158,7 +93,6 @@ body{
 }
 
 
-/* Specialty Section */
 .specialty-section{
     width: 90%;
     margin: 80px auto;
@@ -197,8 +131,6 @@ body{
     margin: auto auto 15px;
 }
 
-
-/* CTA Banner */
 .cta-banner{
     width: 90%;
     margin: 80px auto;
@@ -226,34 +158,6 @@ body{
 }
 
 
-/* Footer */
-.footer{
-    width: 90%;
-    margin: 80px auto 30px;
-
-    display: flex;
-    justify-content: space-between;
-    gap: 40px;
-    flex-wrap: wrap;
-}
-
-.footer-col{
-    flex: 1;
-    min-width: 220px;
-}
-
-.footer-col h4{
-    margin-bottom: 20px;
-}
-
-.footer-col ul{
-    list-style: none;
-}
-
-.footer-col ul li{
-    margin-bottom: 10px;
-    color: #555;
-}
 
 .main-info p{
     margin-top: 15px;
@@ -262,7 +166,6 @@ body{
 }
 
 
-/* Responsive */
 @media(max-width: 900px){
 
     .hero-section,
@@ -278,18 +181,10 @@ body{
     .hero-users{
         flex-direction: column;
     }
-
-    .navbar{
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .nav-links{
-        flex-wrap: wrap;
-        justify-content: center;
-    }
 }
-/* WHY CHOOSE US SECTION */
+
+
+
 .why-choose-us {
     padding: 40px 8%;
     margin-bottom: 80px;
@@ -303,7 +198,7 @@ body{
     font-weight: 400;
 }
 
-/* WHY CHOOSE US SECTION */
+
 .why-choose-us {
     padding: 40px 8%;
     margin-bottom: 80px;
@@ -312,7 +207,6 @@ body{
 .benefits-grid {
     display: flex;
     width: 100%;
-    /* Create a border around the entire container */
     border: 1px solid #e5e7eb;
     border-radius: 4px;
     overflow: hidden;
@@ -321,13 +215,12 @@ body{
 .benefit-card {
     flex: 1;
     padding: 50px 40px;
-    /* This creates the vertical lines between the three cards */
     border-right: 1px solid #e5e7eb;
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
-/* Remove the border from the last card (Personalization) */
+
 .benefit-card:last-child {
     border-right: none;
 }
@@ -345,10 +238,10 @@ body{
     line-height: 1.5;
 }
 
-/* Hover and Active State for the middle card */
+
 .benefit-card:hover,
 .benefit-card.active-card {
-    background-color: #5f6fff; /* Your primary blue */
+    background-color: #5f6fff;
 }
 
 .benefit-card:hover h4,
@@ -412,7 +305,7 @@ body{
             <div class="about-text">
                 <p>Welcome to AppointMEND, your smart and reliable healthcare appointment booking platform designed to make hospital and doctor appointments faster, easier, and more organized. We understand the common challenges patients face, including long waiting times, overcrowded hospitals, and difficulties in finding the right doctor.</p>
 
-                <p>At AppointMEND, our goal is to simplify the healthcare experience through technology. Our platform allows patients to book appointments digitally, search for specialized doctors, track queue positions in real time, and receive smart appointment reminders — all in one convenient system.</p>
+                <p>At AppointMEND, our goal is to simplify the healthcare experience through technology. Our platform allows patients to book appointments digitally, search for specialized doctors, track queue positions in real time — all in one convenient system.</p>
                 <p>We are committed to improving healthcare efficiency by reducing manual errors, minimizing patient confusion, and saving valuable time for both patients and healthcare providers. With features like symptom-based specialist recommendations, digital prescriptions, and review systems, AppointMEND ensures a more transparent and user-friendly healthcare experience.</p>
                 <h3 class="vision-title">Our Vision</h3>
                 <p>Our vision is to create a seamless and accessible healthcare system where patients can receive medical support without unnecessary delays or complications. We aim to bridge the gap between patients and healthcare providers by building a modern platform that enhances convenience, efficiency, and trust in healthcare services.</p>
@@ -439,10 +332,6 @@ body{
                <p>Find the right specialist quickly based on your symptoms.</p>
             </div>
 
-            <div class="benefit-card">
-               <h4>APPOINTMENT REMINDERS:</h4>
-                <p>Get instant notifications so you never miss your scheduled visit.</p>
-            </div>
 
 
         </div>

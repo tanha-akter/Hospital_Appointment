@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<style>/* RESET & GLOBALS */
+<style>
 * {
     margin: 0;
     padding: 0;
@@ -10,49 +10,6 @@
     font-family: 'Outfit', sans-serif;
 }
 
-body {
-    color: #1f2937;
-}
-
-/* NAVIGATION */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 8%;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #1f2937;
-    display: flex;
-    align-items: center;
-}
-
-.logo-icon {
-    color: #5f6fff;
-    margin-right: 8px;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 25px;
-}
-
-.nav-links li a {
-    text-decoration: none;
-    color: #4b5563;
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding-bottom: 4px;
-}
-
-.nav-links li a.active {
-    border-bottom: 2px solid #5f6fff; /* Blue line under active link */
-}
 
 .btn-account {
     background-color: #5f6fff;
@@ -113,7 +70,8 @@ body {
 }
 
 .btn-explore {
-    background: white;
+    text-decoration:none;
+    background: blue;
     border: 1px solid #1f2937;
     padding: 16px 32px;
     cursor: pointer;
@@ -125,83 +83,26 @@ body {
     background-color: #1f2937;
     color: white;
 }
-
-/* FOOTER SECTION */
-.footer {
-    padding: 80px 8% 20px 8%;
-    margin-top: 60px;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    gap: 50px;
-    margin-bottom: 40px;
-}
-
-.about-col {
-    flex: 2; /* Wider column for the description */
-}
-
-.footer-col {
-    flex: 1;
-}
-
-.footer-logo {
-    margin-bottom: 20px;
-}
-
-.footer-desc {
-    max-width: 400px;
-}
-
-.footer-heading {
-    font-size: 1rem;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-.footer-links {
-    list-style: none;
-}
-
-.footer-links li {
-    margin-bottom: 10px;
-    color: #4b5563;
-    font-size: 0.9rem;
-}
-
-.footer-links li a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.copyright-bar {
-    border-top: 1px solid #e5e7eb;
-    padding-top: 20px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: #4b5563;
-}</style>
+</style>
 
     <section class="contact-section">
-        <h2 class="page-title">CONTACT <span class="dark-text">US</span></h2>
+        <h2 class="page-title dark-text">CONTACT <span class="dark-text">US</span></h2>
 
         <div class="contact-grid">
             <div class="contact-img-container">
-                <img src="{% static 'images/final.png' %}" alt="Prescripto Office" class="contact-img">
+                <img src="{% static 'images/final.png' %}" alt="appointMEND Office" class="contact-img">
             </div>
 
             <div class="contact-details">
-                <h3 class="sub-heading">OUR OFFICE</h3>
-                <p class="text-gray">54709 Willms Station<br>Suite 350, Washington, USA</p>
+                <h3 class="sub-heading">OUR UNIVERSITY</h3>
+                <p class="text-gray">74/A, Green Road<br>Dhaka - 1205, Bangladesh</p>
 
-                <p class="text-gray">Tel: (415) 555-0132<br>Email: greatstackdev@gmail.com</p>
+                <p class="text-gray">PABX: +8802-41010626-9 (Ext-777)<br>Email: headcse@uap-bd.edu</p>
 
-                <h3 class="sub-heading">CAREERS AT PRESCRIPTO</h3>
-                <p class="text-gray">Learn more about our teams and job openings.</p>
+                <h3 class="sub-heading">OUR TEAM</h3>
+                <p class="text-gray">23201011@uap-bd.edu</br>23201032@uap-bd.edu<br>23201052@uap-bd.edu<br></p>
 
-                <button class="btn-explore">Explore Jobs</button>
+                <a class="btn-explore text-white" href="https://github.com/tanha-akter/Hospital_Appointment">Explore Project Code</a>
             </div>
         </div>
     </section>

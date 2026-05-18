@@ -139,7 +139,7 @@
 
         <div class="register-header">
             <h2>Create Account</h2>
-            <p>Create your appointMED account</p>
+            <p>Create your appointMEND account</p>
         </div>
 
         {% if form.errors %}
@@ -150,7 +150,7 @@
         <form method="POST">
 
             {% csrf_token %}
-            <!--this is for username-->
+
             <div class="form-group">
                 <div class="input-wrapper">
                     <input type="text" name="username" required placeholder=" ">

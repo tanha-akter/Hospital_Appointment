@@ -20,14 +20,14 @@
                    data-aos="fade-right"
                    data-aos-delay="200">
 
-                    Our dedicated team is committed to providing comprehensive and compassionate care.
+                    Our dedicated team is committed to providing comprehensive and compassionate care.<br>
                 </p>
 
-                <button class="btn btn-primary-custom px-4 py-3 rounded-1 shadow-sm"
+                <a class="btn btn-primary-custom px-4 py-3 rounded-1 shadow-sm"
                         data-aos="fade-right"
-                        data-aos-delay="300">
+                        data-aos-delay="300" href="{% url 'doctor_list'%}">
                     Find Doctors
-                </button>
+                </a>
             </div>
 
             <div class="col-lg-6 text-center"
@@ -44,37 +44,44 @@
     </div>
 </section>
 
-<!-- EXPERTISE -->
 <section class="py-5 bg-light-blue">
     <div class="container text-center">
 
         <h2 class="fw-bold mb-5" data-aos="zoom-in">
-            Expertise & Specializations
+            What We Offer
         </h2>
 
         <div class="row g-4">
 
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
                 <div class="card expertise-card p-4 shadow-sm">
                     <i class="bi bi-tooth fs-1 text-primary"></i>
-                    <h5 class="fw-bold mt-3">Dental Care</h5>
-                    <p class="text-muted small">Routine and emergency dental services.</p>
+                    <h5 class="fw-bold mt-3">Symptom Checker</h5>
+                    <p class="text-muted small">Input your symptom and we will instantly guide you to the right specialist of your needs</p>
                 </div>
             </div>
 
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
                 <div class="card expertise-card p-4 shadow-sm">
-                    <i class="bi bi-brain fs-1 text-primary"></i>
-                    <h5 class="fw-bold mt-3">Neurology</h5>
-                    <p class="text-muted small">Brain and nervous system care.</p>
+                    <i class=" fs-1 text-primary"></i>
+                    <h5 class="fw-bold mt-3">Effortless Booking</h5>
+                    <p class="text-muted small">Skip the endless phone calls. Browse and secure available slots in just a few clicks.</p>
                 </div>
             </div>
 
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
                 <div class="card expertise-card p-4 shadow-sm">
-                    <i class="bi bi-heart fs-1 text-primary"></i>
-                    <h5 class="fw-bold mt-3">Cardiology</h5>
-                    <p class="text-muted small">Heart disease treatment & care.</p>
+                    <i class="fs-1 text-primary"></i>
+                    <h5 class="fw-bold mt-3">Live Queue Tracking</h5>
+                    <p class="text-muted small">Time is Valuable. Monitor your appointment status with our Live Queue feature</p>
+                </div>
+            </div>
+
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+                <div class="card expertise-card p-4 shadow-sm">
+                    <i class="fs-1 text-primary"></i>
+                    <h5 class="fw-bold mt-3">Download Prescription</h5>
+                    <p class="text-muted small">No more worrying about lost paperwork. Securely access and download your prescriptions from you profile</p>
                 </div>
             </div>
 
@@ -96,19 +103,19 @@
                 </h2>
 
                 <p class="text-muted mt-3">
-                    Take control of your health with expert doctors and personalized care.
+                   Every second matters when it comes to your health. We’ve redesigned the hospital experience so you can focus less on waiting rooms and more on healing.
                 </p>
 
-                <button class="btn btn-primary-custom mt-3">
-                    Contact Us
-                </button>
+                <a class="btn btn-primary-custom mt-3" href="{% url 'home'%}">
+                    Get Started
+                </a>
             </div>
 
             <div class="col-lg-6 text-center"
                  data-aos="zoom-in">
 
                 <div class="doctor-circle-bg">
-                    <img src="https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&q=80&w=500"
+                    <img src="{% static 'images/Circle.jpeg'%}"
                          class="rounded-circle shadow">
                 </div>
 
@@ -122,7 +129,7 @@
 <section class="py-5 bg-light-blue text-center">
     <div class="container" data-aos="flip-up">
         <h2 class="fw-bold">
-            We Have Lab Test Facilities, <br> Book Yours Today!
+            We have trusted specialists ready to care for you, <br> Book Yours Today!
         </h2>
     </div>
 </section>
