@@ -25,12 +25,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
     }
 
     .image-box img {
         width: 100%;
-        height: 100%;
+        height: auto;
         object-fit: cover;
+        display:block;
+        max_height:500px;
     }
 
     .content-box {
@@ -109,6 +112,7 @@
         }
     }
 </style>
+<div class =''></div>
 
 <div class="profile-container">
 
@@ -167,16 +171,39 @@
 </div>
 
         <!-- book korar button -->
-        <form method="POST" action="{% url 'book_appointment' doctor.id %}">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">
-        Book Appointment
-    </button>
-            {% if error %}
-<div class="alert alert-danger mt-3">
+        {% if error %}
+<div class="alert alert-danger mb-3">
     {{ error }}
 </div>
 {% endif %}
+       <form method="POST" action="{% url 'book_appointment' doctor.id %}">
+    {% csrf_token %}
+
+    <div class="mb-3">
+
+        <label class="form-label fw-bold">
+            Select Appointment Date
+        </label>
+
+        <input
+            type="date"
+            name="appointment_date"
+            class="form-control"
+            min="{{ today|date:'Y-m-d' }}"
+            max="{{ max_booking_date|date:'Y-m-d' }}"
+            required
+        >
+
+        <small class="text-muted">
+            Appointments are available for today and tomorrow only.
+        </small>
+
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Book Appointment
+    </button>
+
 </form>
 
 

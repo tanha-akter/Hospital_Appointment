@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Appointment, Notification, Prescription
 from accounts.models import DoctorProfile
-from datetime import date
+from datetime import date, timedelta
 from django.db.models import F
 from django.views.decorators.http import require_POST
 
@@ -14,24 +14,75 @@ def book_appointment(request, pk):
 
     today = date.today()
 
+    # Maximum booking date = tomorrow
+    max_booking_date = today + timedelta(days=1)
+
     if request.method == "POST":
 
-        # Only today's appointments
-        today_appointments = Appointment.objects.filter(
+        selected_date = request.POST.get("appointment_date")
+
+        # No date selected
+        if not selected_date:
+            return render(request, "doctor_detail.html", {
+                "doctor": doctor,
+                "error": "Please select an appointment date.",
+                "today": today,
+                "max_booking_date": max_booking_date
+            })
+
+        selected_date = date.fromisoformat(selected_date)
+
+        # Prevent past dates
+        if selected_date < today:
+            return render(request, "doctor_detail.html", {
+                "doctor": doctor,
+                "error": "Cannot book past dates.",
+                "today": today,
+                "max_booking_date": max_booking_date
+            })
+
+        # Prevent booking beyond tomorrow
+        if selected_date > max_booking_date:
+            return render(request, "doctor_detail.html", {
+                "doctor": doctor,
+                "error": "You can only book for today or tomorrow.",
+                "today": today,
+                "max_booking_date": max_booking_date
+            })
+
+        # Prevent duplicate booking
+        already_booked = Appointment.objects.filter(
+            patient=request.user,
             doctor=doctor,
-            appointment_date=today
+            appointment_date=selected_date
+        ).exclude(status="CANCELLED").exists()
+
+        if already_booked:
+            return render(request, "doctor_detail.html", {
+                "doctor": doctor,
+                "error": "You already booked this doctor for this date.",
+                "today": today,
+                "max_booking_date": max_booking_date
+            })
+
+        # Appointments for selected date
+        day_appointments = Appointment.objects.filter(
+            doctor=doctor,
+            appointment_date=selected_date
         ).exclude(status='CANCELLED')
 
-        # LIMIT = 20
-        if today_appointments.count() >= 20:
+        # Daily limit
+        if day_appointments.count() >= 20:
 
             return render(request, "doctor_detail.html", {
                 "doctor": doctor,
-                "error": "Today's appointment limit reached."
+                "error": "Appointment limit reached for this date.",
+                "today": today,
+                "max_booking_date": max_booking_date
             })
 
-        # Find last queue position
-        last_appt = today_appointments.order_by('-queue_position').first()
+        # Queue logic
+        last_appt = day_appointments.order_by('-queue_position').first()
 
         if last_appt:
             next_position = last_appt.queue_position + 1
@@ -42,7 +93,7 @@ def book_appointment(request, pk):
         appointment = Appointment.objects.create(
             patient=request.user,
             doctor=doctor,
-            appointment_date=today,
+            appointment_date=selected_date,
             token_number=next_position,
             queue_position=next_position
         )
@@ -50,13 +101,15 @@ def book_appointment(request, pk):
         # Notification
         Notification.objects.create(
             user=request.user,
-            message=f"Appointment booked with Dr. {doctor.name}. Token #{appointment.token_number}"
+            message=f"Appointment booked with Dr. {doctor.name} for {selected_date}. Token #{appointment.token_number}"
         )
 
         return redirect("my_appointments")
 
     return render(request, "doctor_detail.html", {
-        "doctor": doctor
+        "doctor": doctor,
+        "today": today,
+        "max_booking_date": max_booking_date
     })
 
 
@@ -67,8 +120,8 @@ def my_appointments(request):
         patient=request.user
     ).order_by('-created_at')
 
-    all_today_appointments = Appointment.objects.filter(
-        appointment_date=date.today()
+    all_today_appointments = Appointment.objects.exclude(
+        status="CANCELLED"
     )
 
     return render(request, "my_appointments.html", {
@@ -82,6 +135,8 @@ def notifications_page(request):
     notifications = Notification.objects.filter(
         user=request.user
     ).order_by('-created_at')
+
+    notifications.update(is_read=True)
 
     return render(request, "notifications.html", {
         "notifications": notifications
