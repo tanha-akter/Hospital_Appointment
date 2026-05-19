@@ -84,7 +84,7 @@ def symptom_checker(request):
 
 
         if symptom in ["Fever", "Cold & Cough"]:
-            speciality = "General physician"
+            speciality = "General Physician"
         elif symptom in ["Headache", "Dizziness"]:
             speciality = "Neurologist"
         elif symptom in ["Skin Rash", "Acne"]:
