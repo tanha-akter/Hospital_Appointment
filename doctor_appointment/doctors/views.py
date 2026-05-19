@@ -100,7 +100,7 @@ def symptom_checker(request):
         elif symptom in ["Chest Pain", "Heart Problem"]:
             speciality = "Cardiologist"
         else:
-            speciality = "General physician"
+            speciality = "General Physician"
 
         doctors = DoctorProfile.objects.filter(
             speciality=speciality
